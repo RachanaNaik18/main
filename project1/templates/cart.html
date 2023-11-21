@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <title>Cart</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+</head>
+<style>
+    body{
+        background-color: aquamarine;
+    }
+    .IMG:hover{
+        transform: scale(1.2, 1.6);
+    }
+    .IMG, .fig{
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        border-radius:10% ;
+    }
+    .fig{
+        width: 180px;
+    }
+    .fig:hover{
+        transform: scale(1.1, 1.2);
+        animation-name: example;
+        animation-duration: 4s;
+        animation-iteration-count: 3;
+    }
+    .c-half{
+        background-color: pink;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+    @keyframes example {
+        from {background-color: wheat;}
+        to {background-color: indianred;}
+    }
+
+    .dropdown{
+        display: none;
+    }
+    @media screen and (max-width: 500px) {
+        .dropdown{
+            display: inline;
+        }
+        .menu{
+            display: none;
+        }
+        
+    }
+</style>
+<body>
+    <div class="container c-half">
+<div class="row mt-5 ">
+    <div class="col-lg-2 ">
+        <div class="row">
+            <h1 class="menu">Menu</h1>
+            <div class="dropdown">
+                <h3>Picture</h3>
+                <h3>Cart</h3>
+                <h3>Contact us</h3>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-10 mt-3 ">
+        <div class="row">
+        {% for i in data %}
+        <div class="col-lg-3 col-md-6 col-sm-12">
+            <figure>
+            <img src="{{i.image.url}}" alt="" class="IMG" height="190" width="180">
+            <figcaption class="fig" >
+                <p>{{i.id}}, {{i.name}}</p>
+
+            </figcaption>
+        </figure>
+        <form action="{% url 'addtocart' %}" method="get"></form>
+        <input type="number" value={{i.id}} name="cid">
+        <input type="button" value="Add to Cart">
+        </div>
+        {% endfor %}
+        </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

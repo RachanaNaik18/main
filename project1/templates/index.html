@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{% block title %}Index{% endblock %}</title>
+</head>
+<style>
+    table, tr, th{
+        border: 2px solid red;
+    }
+    table{
+        width: 100%;
+    }
+</style>
+<body>
+{% if messages %}
+{% for message in messages %}
+<h1 style="color: red;" class="Msg">{{message}}</h1>
+{% endfor %}
+{%  endif %}
+    <h1>The Student Datasheet</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Images</th>
+            <th>Time</th>
+            <th>Gender</th>
+            <th>English</th>
+            <th>Hindi</th>
+            <th>Marathi</th>
+            <th>City</th>
+            <th colspan="2">Action</th>
+        </tr>
+        {% for data12 in data %}
+        <tr>
+            <th>{{data12.id}}</th>
+            <th>{{data12.name}}</th>
+            <th>{{data12.age}}</th>
+            <th><img src="{{data12.image.url}}" width="150" alt=""></th>
+            <th>{{data12.time}}</th>
+            <th>{{data12.gender}}</th>
+            <th>{{data12.English}}</th>
+            <th>{{data12.Hindi}}</th>
+            <th>{{data12.Marathi}}</th>
+            <th>{{data12.city}}</th>
+            <th><a href="{% url 'update' data12.id %}">Update</a></th>
+            <th>
+                <form action="{% url 'dele' data12.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Delete" />
+                </form>
+            </th>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+<script>
+document.getElementsByClassName("Msg").setTimeout(() => {
+    return Saved
+}, 4000);
+</script>
+</html>
